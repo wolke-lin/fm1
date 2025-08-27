@@ -1,44 +1,45 @@
 <div style="
-  background: rgba(255,255,255,0.18);
-  border-radius: 18px;
+  background: #a7c7e7;
+  border-radius: 20px;
   box-shadow: 0 4px 24px rgba(85,125,155,0.10);
   padding: 32px 24px;
   text-align: center;
   max-width: 380px;
   margin:auto;
-  font-family: 'Segoe UI', Arial, sans-serif;">
+  font-family: 'Segoe UI', Arial, sans-serif;
+">
   <div style="
-    font-size: 1.4em;
+    font-size: 1.45em;
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 1px;
-    text-shadow: 0 2px 6px rgba(85,125,155,0.25);
-    margin-bottom: 12px;
+    margin-bottom: 18px;
   ">
-    Days left to 1st Turbine Handover
+    Days left to 1st Turbine<br>Handover
   </div>
   <div id="daysLeft" style="
     font-size: 3.2em;
-    font-weight: bold;
+    font-weight: 600;
     color: #557D9B;
-    background: linear-gradient(90deg, #557D9B 40%, #A7C7E7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 16px;
+    margin-bottom: 22px;
     letter-spacing: 2px;
   ">---</div>
   <div style="
-    font-size: 1.1em;
+    font-size: 1.15em;
     color: #fff;
-    opacity: 0.88;
+    font-weight: 400;
+    opacity: 0.93;
     margin-bottom: 4px;
+    text-align: center;
+    display: inline-block;
+    letter-spacing:1px;
   ">
-    Target date: 2027/7/24 08:00 (Taiwan)
+    <span style="font-weight:600;">TARGET DATE:</span> <span id="targetDate">24 Jul 2027</span>
   </div>
 </div>
 <script>
 function updateCountdown() {
-  // 台灣時間 2027/7/24 上午8點 = UTC 2027/7/24 00:00
+  // 目標日期：2027/7/24（不含08:00，僅日期）
   const target = new Date(Date.UTC(2027, 6, 24, 0, 0, 0)); // 月份0起算
   const now = new Date();
   // 取得目前 UTC+8（台灣時間）
@@ -49,6 +50,11 @@ function updateCountdown() {
   let days = Math.ceil(diff / (1000 * 60 * 60 * 24));
   if (days < 0) days = 0;
   document.getElementById('daysLeft').textContent = days;
+
+  // 日期格式顯示 24 Jul 2027
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const dateStr = `${target.getUTCDate()} ${months[target.getUTCMonth()]} ${target.getUTCFullYear()}`;
+  document.getElementById('targetDate').textContent = dateStr;
 }
 updateCountdown();
 setInterval(updateCountdown, 60 * 1000);
